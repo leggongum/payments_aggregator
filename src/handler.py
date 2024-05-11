@@ -17,12 +17,12 @@ async def get_start(message: Message):
 
 @router.message()
 async def aggregate(message: Message):
-    print(message.text)
+    #print(message.text)
     try:
         case = AggregationRequest(**json.loads(message.text))
     except json.decoder.JSONDecodeError:
         return await message.answer('Принимаются только сообщения вида: \n{\n"dt_from": isodate,\n"dt_upto": isodate,\n"group_type":"hour" or "day" or "week" or "month"\n}')
-    print(case.model_dump())
+    #print(case.model_dump())
     response = form_aggregation(case.model_dump())
 
     await message.answer(response)
