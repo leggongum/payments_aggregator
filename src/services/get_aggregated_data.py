@@ -5,11 +5,11 @@ import json
 
 from services.utils import generate_date_range
 from services.schemas import AggregationRequest
-from config import Settings
+from config import settings
 
 def get_database():
  
-   client = MongoClient(Settings.MONGODB_URL)
+   client = MongoClient(settings.MONGODB_URL)
 
    return client['Payment']
 
