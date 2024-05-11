@@ -86,4 +86,8 @@ def form_aggregation(case: AggregationRequest) -> str:
         dataset.append(row['amount'])
         current += 1
     
+    for date_index in range(current, len(date_list)):
+        labels.append(date_list[current].isoformat())
+        dataset.append(0)
+    
     return json.dumps({'dataset': dataset, 'labels': labels})
