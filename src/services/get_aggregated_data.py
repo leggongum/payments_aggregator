@@ -5,15 +5,17 @@ import json
 
 from services.utils import generate_date_range
 from services.schemas import AggregationRequest
+from config import Settings
 
 def get_database():
  
-   client = MongoClient('mongodb://localhost:27017/Payment')
+   client = MongoClient(Settings.MONGODB_URL)
 
    return client['Payment']
 
 
-def get_aggregated_data(dt_from, dt_upto, group_type):
+def get_aggregated_data(dt_from: datetime, dt_upto: datetime, group_type):
+    dt_from, dt_upto = dt_from.isoformat(), dt_upto.isoformat()
     date_pattern = {'year': "$date.year", 'month': "$date.month"}
 
     date_format = {'date': "$dt"}
