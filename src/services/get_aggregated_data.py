@@ -1,9 +1,10 @@
 from pymongo import MongoClient
 
 from datetime import datetime
+import json
 
-from utils import generate_date_range
-from schemas import AggregationRequest
+from services.utils import generate_date_range
+from services.schemas import AggregationRequest
 
 def get_database():
  
@@ -66,7 +67,6 @@ def get_aggregated_data(dt_from, dt_upto, group_type):
         ])
 
 
-
 def form_aggregation(case: AggregationRequest) -> str:
     date_list = list(generate_date_range(*case.values()))
 
@@ -84,4 +84,4 @@ def form_aggregation(case: AggregationRequest) -> str:
         dataset.append(row['amount'])
         current += 1
     
-    return '{' + f'"dataset": {dataset}, "labels": {labels}' + '}'
+    return json.dumps({'dataset': dataset, 'labels': labels})
